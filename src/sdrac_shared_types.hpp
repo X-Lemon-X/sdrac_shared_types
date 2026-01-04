@@ -1,7 +1,7 @@
 #pragma once
 
-#include <array>
-#include <vector>
+#include <cstdint>
+
 
 struct ModuleConfig {
   // Steper motor config
@@ -41,4 +41,42 @@ struct ModuleConfig {
   float movement_limit_upper;
   uint8_t movement_control_mode;
   float movement_max_acceleration;
+};
+
+
+/// @brief struct for the error data that represents the state of the system
+/// Max amount of errors is equal to max length of the CAN frame so 8 x 8 = 64 (max)
+/// The errors are represented as bool values
+/// 0 - no error
+/// 1 - error
+/// you can retrieve the amount of errors by calling get_amount_of_errors()
+class ErrorData {
+public:
+  ErrorData() = default;
+  // temperature errors
+  bool temp_engine_overheating       = false;
+  bool temp_driver_overheating       = false;
+  bool temp_board_overheating        = false;
+  bool temp_engine_sensor_disconnect = false;
+  bool temp_driver_sensor_disconnect = false;
+  bool temp_board_sensor_disconnect  = false;
+
+  // encoder errors
+  bool encoder_arm_disconnect   = false;
+  bool encoder_motor_disconnect = false;
+
+  // board errors
+  bool baord_overvoltage  = false;
+  bool baord_undervoltage = false;
+
+  // can errors
+  bool can_disconnected = false;
+  bool can_error        = false;
+
+  // other errors
+  bool controler_motor_limit_position = false;
+
+  /// @brief get the amount of errors
+  /// @return the amount of errors
+  unsigned int get_amount_of_errors() const;
 };
