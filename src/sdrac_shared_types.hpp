@@ -1,5 +1,7 @@
 #pragma once
 
+#include <array>
+#include <vector>
 
 struct ModuleConfig {
   // Steper motor config
