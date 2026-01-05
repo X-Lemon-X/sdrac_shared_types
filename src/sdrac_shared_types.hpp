@@ -41,6 +41,8 @@ struct ModuleConfig {
   float movement_limit_upper;
   uint8_t movement_control_mode;
   float movement_max_acceleration;
+
+  uint16_t can_base_id;
 };
 
 
